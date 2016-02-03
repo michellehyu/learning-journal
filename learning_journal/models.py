@@ -39,7 +39,7 @@ class Entry(Base):
     
     @classmethod
     def all(class_):
-        """Return a query of users sorted by name."""
+        """Return a query of all entries."""
         Entry = class_
         q = DBSession.query(Entry)
         q = q.order_by(Entry.created)
@@ -47,7 +47,7 @@ class Entry(Base):
 
     @classmethod
     def by_id(class_, id):
-        """Return a query of users sorted by name."""
+        """Return a query of entries sorted by id."""
         Entry = class_
         q = DBSession.query(Entry)
         q = q.get(id)
