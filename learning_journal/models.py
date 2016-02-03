@@ -34,8 +34,8 @@ class Entry(Base):
     id = Column(Integer, primary_key=True)
     title = Column(Unicode(255), unique=True, nullable=False)
     body = Column(Text)
-    created = Column(DateTime, default=datetime.datetime.now)
-    edited = Column(DateTime, default=datetime.datetime.now)
+    created = Column(DateTime, default=datetime.datetime.utcnow)
+    edited = Column(DateTime, default=datetime.datetime.utcnow)
     
     @classmethod
     def all(class_):
