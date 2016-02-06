@@ -6,6 +6,7 @@ from sqlalchemy import (
     Text,
     Unicode,
     DateTime,
+    desc
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -35,21 +36,21 @@ class Entry(Base):
     title = Column(Unicode(255), unique=True, nullable=False)
     body = Column(Text)
     created = Column(DateTime, default=datetime.datetime.utcnow)
-    edited = Column(DateTime, default=datetime.datetime.utcnow)
+    edited = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow())
     
     @classmethod
     def all(class_):
         """Return a query of all entries."""
         Entry = class_
-        q = DBSession.query(Entry)
-        q = q.order_by(Entry.created)
-        return q
+        entry_q = DBSession.query(Entry)
+        entry_q = entry_q.order_by(desc(Entry.created))
+        return entry_q
 
     @classmethod
     def by_id(class_, id):
         """Return a query of entries sorted by id."""
         Entry = class_
-        q = DBSession.query(Entry)
-        q = q.get(id)
-        return q
+        entry_q = DBSession.query(Entry)
+        entry_q = entry_q.get(id)
+        return entry_q
 
