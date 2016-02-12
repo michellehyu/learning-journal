@@ -4,7 +4,7 @@ from pyramid.view import view_config
 from sqlalchemy.exc import DBAPIError
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPFound
-from .forms import EntryCreateForm
+from .forms import EntryCreateForm, EntryUpdateForm
 
 
 from .models import (
@@ -38,4 +38,11 @@ def create(request):
 
 @view_config(route_name='action', match_param='action=edit', renderer='templates/edit.jinja2')
 def update(request):
-    return update
+    this_id = request.params.get('id', -1)
+    entry = Entry.by_id(this_id)
+    form = EntryUpdateForm(request.POST, entry)
+    if request.method == 'POST' and form.validate():
+        form.populate_obj(entry)
+        return HTTPFound(location=request.route_url('detail', id=entry.id))
+    return {'form': form, 'action': request.matchdict.get('action')}
+
