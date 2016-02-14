@@ -48,9 +48,23 @@ class Entry(Base):
 
     @classmethod
     def by_id(class_, id):
-        """Return a query of entries sorted by id."""
+        """Return an entry with id."""
         Entry = class_
         entry_q = DBSession.query(Entry)
         entry_q = entry_q.get(id)
         return entry_q
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode(255), unique=True, nullable=False)
+    password = Column(Unicode(255), nullable=False)
+
+    @classmethod
+    def by_name(class_, name):
+        """Return an user with the id."""
+        User = class_
+        user_q = DBSession.query(User)
+        user_q = user_q.filter(User.name == name).first()
+        return user_q
 
