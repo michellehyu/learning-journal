@@ -1,0 +1,11 @@
+{% extends "layout.jinja2" %}
+{% block body %}
+  <article>
+    <h1>{{ entry.title }}</h1>  <a href="{{request.route_url('action', action='edit', _query={'id': entry.id})}}"> Edit </a>
+    <hr/>
+    <p>{{ entry.body }}</p>
+    <hr/>
+    <p>Created <strong title="{{ entry.created }}">{{entry.created}}</strong></p>
+    <p>Edited <strong title="{{ entry.edited }}">{{entry.edited}}</strong></p>
+  </article>
+{% endblock %}

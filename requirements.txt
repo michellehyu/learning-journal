@@ -13,6 +13,7 @@ PasteDeploy==1.5.2
 path.py==8.1.2
 pexpect==4.0.1
 pickleshare==0.6
+psycopg2==2.6.1
 ptyprocess==0.5.1
 Pygments==2.1
 pyramid==1.6
